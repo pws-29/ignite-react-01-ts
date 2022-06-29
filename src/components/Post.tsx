@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 
@@ -7,8 +7,24 @@ import styles from './Post.module.css';
 import { format, formatDistanceToNow } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 
+interface Author {
+  name: string;
+  role: string;
+  avatarUrl: string;
+}
 
-export function Post({ author, content, publishedAt }) {
+interface Content {
+  type: 'paragraph' | 'link';
+  content: string;
+}
+
+interface PostProps {
+  author: Author;
+  publishedAt: Date;
+  content: Content[];
+}
+
+export function Post({ author, content, publishedAt }: PostProps) {
   const [textareaValue, setTextareaValue] = useState('');
   const [comments, setComments] = useState(['Post muito bacana, hein?!']);
 
@@ -18,14 +34,14 @@ export function Post({ author, content, publishedAt }) {
     addSuffix: true,
   });
 
-  function handleCreateComment(e) {
+  function handleCreateComment(e: FormEvent) {
     e.preventDefault();
 
     setComments(prevState => [...prevState, textareaValue]);
     setTextareaValue('');
   }
 
-  function deleteComment(comment) {
+  function deleteComment(comment: string) {
     setComments(prevState => prevState.filter(c => c !== comment));
   }
 
