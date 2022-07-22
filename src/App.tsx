@@ -11,7 +11,7 @@ const posts = [
   {
     id: uuidv4(),
     author: {
-      avatarUrl: "https://github.com/pws-29.png",
+      avatarUrl: "https://github.com/wspietro.png",
       name: "Pietro Weg Sera",
       role: "Web Developer"
     },
